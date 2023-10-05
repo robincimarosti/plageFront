@@ -1,0 +1,52 @@
+<!-- <div class="row mt-5">
+  <div class="col-6 card shadow mx-auto p-3">
+    <h3 class="text-center">CONNEXION</h3>
+
+    <div
+      *ngIf="errMsg"
+      class="alert alert-danger my-2">
+      {{errMsg}}
+    </div>
+
+    <form #loginForm="ngForm" (ngSubmit)="onSubmitLoginForm(loginForm)">
+
+      <div class="mb-3">
+        <label for="email">Email</label>
+        <input type="text"
+               id="email"
+               class="form-control"
+               placeholder="Votre email..."
+               name="email"
+               required
+               email
+               minlength="5"
+               ngModel>
+      </div>
+
+      <div class="mb-3">
+        <label for="password">Mot de passe</label>
+        <input type="password"
+               id="password"
+               class="form-control"
+               placeholder="Votre mot de passe..."
+               name="password"
+               required
+               minlength="5"
+               maxlength="20"
+               ngModel>
+      </div>
+
+      <div class="row col-6 mx-auto">
+        <button
+          type="submit"
+          class="btn btn-dark btn-lg"
+          [disabled]="loginForm.invalid">
+          ME CONNECTER
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div> -->
+

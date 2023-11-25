@@ -1,0 +1,38 @@
+<form (ngSubmit)="onSubmitForm()" [formGroup]="form">
+  <label for="nom" class="col-sm-1 control-label">Nom</label>
+  <input type="text" formControlName="nom" id="nom"/>
+
+  <br>
+
+  <label for="prenom" class="col-sm-1 control-label">Prénom</label>
+  <input type="text" formControlName="prenom" id="prenom"/>
+  <br>
+
+  <label for="email" class="col-sm-1 control-label">Email</label>
+  <input type="email" formControlName="email" id="email"/>
+  <br>
+
+  <label for="motDePasse" class="col-sm-1 control-label">Mot de passe</label>
+  <input type="password" formControlName="motDePasse" id="motDePasse"/>
+  <br>
+
+  <label for="pays" class="col-sm-1 control-label">Pays</label>
+  <select formControlName="pays" id="pays">
+      <option *ngFor="let pays of paysList" [value]="pays.code">{{ pays.nom }}</option>
+  </select>
+  <br>
+
+  <label for="lienDeParente" class="col-sm-1 control-label">Lien de parenté</label>
+  <select formControlName="lienDeParente" id="lienDeParente">
+      <option *ngFor="let lien of liensDeParenteList" [value]="lien.id">{{ lien.nom }}</option>
+  </select>
+  <br>
+
+  <button
+            type="submit"
+            class="btn btn-dark btn-lg"
+            [disabled]="form.invalid">
+            {{submitLabel}}
+          </button>
+</form>
+

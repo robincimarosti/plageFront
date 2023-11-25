@@ -25,6 +25,15 @@ export interface Client {
   prenom:	string
   email:	string
   motDePasse:	string
+  pays: {
+    code: string;
+    nom: string;
+  };
+  lienDeParente: {
+    id: number;
+    nom: string;
+    coefficient: number;
+  };
 }
 
 export type ClientForm = Omit<Client, 'id'>
@@ -37,6 +46,15 @@ export namespace Client {
       prenom:	clientHttp.prenom,
       email:	clientHttp.email,
       motDePasse:	clientHttp.motDePasse,
+      pays: {
+        code: clientHttp.pays.code,
+        nom: clientHttp.pays.nom,
+      },
+      lienDeParente: {
+        id: clientHttp.lienDeParente.id,
+        nom: clientHttp.lienDeParente.nom,
+        coefficient: clientHttp.lienDeParente.coefficient,
+      },
     }
   }
 }

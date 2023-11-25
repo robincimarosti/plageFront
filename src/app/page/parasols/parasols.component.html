@@ -1,0 +1,21 @@
+<h1>Liste des parasols</h1>
+
+<form>
+  <select name="ID_FILE" [(ngModel)]="selectedFile">
+    <option value="0">Toutes les files</option>
+    <option *ngFor="let file of files" [value]="file.id" [attr.selected]="file.id === selectedFile  ? true : null">
+      {{ file.numero }}
+    </option>
+  </select>
+  <button (click)="filtrerParasols()">Filtrer</button>
+</form>
+
+<ul>
+  <li *ngFor="let parasol of parasols">
+    {{ parasol.numEmplacement }} en file {{ parasol.file.numero }} ({{ parasol.file.prixJournalier }} &euro;)
+    <a [routerLink]="['parasol', parasol.id]">Modifier</a>
+  </li>
+</ul>
+
+<br><br>
+<a [routerLink]="['parasol']">Ajouter un parasol</a>

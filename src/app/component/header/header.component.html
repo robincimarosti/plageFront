@@ -1,0 +1,16 @@
+<nav *ngIf="isConnected$ | async" class="navbar navbar-expand-lg navbar-light header-background">
+  <div class="container">
+    <!-- Logo à gauche -->
+    <a class="navbar-brand text-white" href="#">
+        <img src="assets/img/logowhite.png" alt="Logo" width="122" height="67" class="d-inline-block align-top">
+    </a>
+            <!-- Boutons à droite -->
+            <div class="d-flex">
+              <a class="nav-link text-white me-2" href="#">Mes Réservations</a>
+              <a class="nav-link text-white me-2" href="#">Mes Informations</a>
+              <button class="nav-link text-white" (click)="onClickLogout()">Déconnexion</button>
+          </div>
+      </div>
+</nav>
+
+

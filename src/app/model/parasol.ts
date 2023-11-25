@@ -1,40 +1,38 @@
 // Représente la donnée qui arrive de l'API
-export interface CharacterHttp {
-  _id: number
-  name:	string
-  films:	string[]
-  videoGames:	string[]
-  parkAttractions:	string[]
-  imageUrl: string
-  createdAt: string
-  updatedAt: string
+export interface ParasolHttp {
+  id: number
+  numEmplacement:	number
+  file: {
+    id: number;
+    numero: number;
+    prixJournalier: number;
+  };
+  reservations: any[];
 }
 
 // Représente la donnée que l'on va utiliser dans notre front
-export interface Character {
+export interface Parasol {
   id: number
-  name:	string
-  films:	string[]
-  videoGames:	string[]
-  parkAttractions:	string[]
-  imgUrl: string
-  createdAt: Date
-  updatedAt: Date
+  numEmplacement:	number
+  file: {
+    id: number;
+    numero: number;
+    prixJournalier: number;
+  };
 }
 
-export type CharacterForm = Omit<Character, 'id'>
+export type ParasolForm = Omit<Parasol, 'id'>
 
-export namespace Character {
-  export function mapperFromHttp(characterHttp: CharacterHttp): Character {
+export namespace Parasol {
+  export function mapperFromHttp(parasolHttp: ParasolHttp): Parasol {
     return {
-      id: characterHttp._id,
-      name:	characterHttp.name,
-      films:	characterHttp.films,
-      videoGames:	characterHttp.videoGames,
-      parkAttractions:	characterHttp.parkAttractions,
-      imgUrl:	characterHttp.imageUrl,
-      createdAt: new Date(characterHttp.createdAt),
-      updatedAt: new Date(characterHttp.updatedAt)
+      id: parasolHttp.id,
+      numEmplacement:	parasolHttp.numEmplacement,
+      file: {
+        id: parasolHttp.file.id,
+        numero: parasolHttp.file.numero,
+        prixJournalier: parasolHttp.file.prixJournalier,
+      },
     }
   }
 }

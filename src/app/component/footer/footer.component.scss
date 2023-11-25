@@ -1,0 +1,22 @@
+.footer-background {
+  background-color: #0077B6; /*image mer*/
+}
+.footer-border {
+  margin-top: 50px;
+  position: relative;
+  border-top: 1px solid white;
+}
+
+.footer-link {
+  margin-bottom: 10px; /* Ajustez la valeur selon vos besoins */
+}
+
+.footer-logo {
+  position: absolute;
+  top: -32px; /* La moitié de la hauteur du logo pour le centrer sur la bordure */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0077B6;
+  border-radius: 50%;
+  padding: 5px;
+}

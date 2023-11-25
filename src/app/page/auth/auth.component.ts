@@ -1,4 +1,4 @@
-/* import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
@@ -23,10 +23,9 @@ export class AuthComponent {
 
       this.authService
         .login(email, password)
-        .then(() => this.router.navigateByUrl('/ailments'))
+        .then(() => this.router.navigateByUrl('/reservations'))
         .catch(errMsg => this.errMsg = errMsg)
     }
   }
 
 }
- */

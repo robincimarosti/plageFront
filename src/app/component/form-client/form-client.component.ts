@@ -34,7 +34,6 @@ export class FormClientComponent implements OnInit {
   onSubmitForm() {
     if(this.form.valid) {
       const {nom, prenom, email, motDePasse, pays, lienDeParente} = this.form.value
-      console.log("lienDeParente dans le formulaire:", lienDeParente);
       const lienDeParenteId = parseInt(lienDeParente, 10);
       const client: ClientForm = {
         nom,
@@ -44,10 +43,7 @@ export class FormClientComponent implements OnInit {
         pays: this.paysList.find(p => p.code === pays),
         lienDeParente: this.liensDeParenteList.find(l => l.id === lienDeParenteId)
       }
-      console.log('lien de parente', client.lienDeParente);
-      console.log('lien de parente liste', this.liensDeParenteList);
 
-      console.log('Client soumis:', client);
       this.formSubmitted.emit(client)
     }
   }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { Pays } from 'src/app/model/pays';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaysService {
-  private apiUrl = 'http://localhost:8180/api';
+  private apiUrl = 'http://localhost:8280/api';
 
   constructor(private http: HttpClient) { }
 

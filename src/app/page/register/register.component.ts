@@ -18,7 +18,6 @@ export class RegisterComponent {
   ) {}
 
   addNewClient (newClient: ClientForm) {
-    console.log('Nouveau client reçu:', newClient);
     this.clientService.addClient(newClient)
     this.router.navigateByUrl('/login')
   }

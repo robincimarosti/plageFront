@@ -9,15 +9,16 @@ import { AuthService } from 'src/app/service/auth/auth.service';
   styleUrls: ['./header.component.scss'],
 
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  isConnected$: Observable<boolean>
+  idClientConnecte: number | null;
 
   constructor (private authService: AuthService, private router: Router) {
   }
 
-  ngOnInit () {
-    this.isConnected$ = this.authService.token$
+  ngOnInit() {
+    this.idClientConnecte = this.authService.getConnectedClientId();
+    console.log('ID du client connecté (récupéré) :', this.idClientConnecte);
   }
 
   onClickLogout(): void {

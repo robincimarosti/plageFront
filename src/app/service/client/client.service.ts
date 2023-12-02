@@ -8,7 +8,7 @@ import { Client, ClientForm, ClientHttp } from 'src/app/model/client';
 })
 export class ClientService {
 
-  private apiUrl = 'http://localhost:8180/api'
+  private apiUrl = 'http://localhost:8280/api'
   private baseUrl;
   private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   private clients$: Observable<Client[]> = this.clientsSubject.asObservable();
@@ -36,9 +36,16 @@ export class ClientService {
     );
   }
 
-  // addClient(formData: Client): Observable<any> {
-  //   return this.http.post<any>(this.baseUrl, formData);
-  // }
+  getById(clientId: number): Promise<Client> {
+    return firstValueFrom(
+      this.http
+        .get<ClientHttp>(`${this.baseUrl}/${clientId}`)
+        .pipe(
+          map(res => Client.mapperFromHttp(res))
+        )
+    );
+  }
+
   addClient(clientToAdd: ClientForm): void {
     const clientToSend = {
       ...clientToAdd,
@@ -51,39 +58,18 @@ export class ClientService {
         nom: clientToAdd.lienDeParente.nom
       }
     };
-    console.log('client à envoyer: ', clientToSend);
-    this.http.post<Client>(`http://localhost:8180/api/clients`, clientToSend).subscribe(response => {
-      // La réponse du serveur est reçue ici
-      console.log('Réponse du serveur:', response);
-      console.log('client send: ', clientToSend)
+    // La réponse du serveur est reçue ici
+    this.http.post<Client>(`http://localhost:8280/api/clients`, clientToSend).subscribe(response => {
       // Ajouter le client à la liste des clients
-      // Ici, nous supposons que le serveur renvoie le client ajouté
       const newClient = response;
       const currentClients = this.clientsSubject.getValue();
       this.clientsSubject.next([...currentClients, newClient]);
     });
   }
-}
-//     this.getNextId().then(nextId => {
-//       const client: Client = {
-//         ...clientToAdd,
-//         id: nextId
-//       };
-//       const currentClients = this.clientsSubject.getValue();
-//       this.clientsSubject.next([...currentClients, client]);
-//     });
-//   }
 
-//   private getNextId(): Promise<number> {
-//     return firstValueFrom(
-//       this.clients$.pipe(
-//         map(clients => {
-//           const maxId = clients.reduce((max, client) => {
-//             return client.id > max ? client.id : max;
-//           }, 0);
-//           return maxId + 1;
-//         })
-//       )
-//     );
-//   }
-// }
+  editClient(clientToEdit: Client): Promise<Client> {
+  return firstValueFrom(
+    this.http.patch<Client>(`${this.baseUrl}/${clientToEdit.id}`, clientToEdit)
+  );
+}
+}

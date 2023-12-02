@@ -1,4 +1,5 @@
-<nav *ngIf="isConnected$ | async" class="navbar navbar-expand-lg navbar-light header-background">
+<nav  class="navbar navbar-expand-lg navbar-light header-background">
+  <!-- *ngIf="isConnected$ | async" -->
   <div class="container">
     <!-- Logo à gauche -->
     <a class="navbar-brand text-white" href="#">
@@ -6,8 +7,8 @@
     </a>
             <!-- Boutons à droite -->
             <div class="d-flex">
-              <a class="nav-link text-white me-2" href="#">Mes Réservations</a>
-              <a class="nav-link text-white me-2" href="#">Mes Informations</a>
+              <a class="nav-link text-white me-2" href="reservations">Mes Réservations</a>
+              <a class="nav-link text-white me-2" [routerLink]="['/edit', idClientConnecte]">Mes Informations</a>
               <button class="nav-link text-white" (click)="onClickLogout()">Déconnexion</button>
           </div>
       </div>

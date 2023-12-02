@@ -12,6 +12,7 @@ import { RegisterComponent } from './page/register/register.component';
 import { FormClientComponent } from './component/form-client/form-client.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { EditClientComponent } from './page/edit-client/edit-client.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FooterComponent } from './component/footer/footer.component';
     RegisterComponent,
     FormClientComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    EditClientComponent
   ],
   imports: [
     BrowserModule,

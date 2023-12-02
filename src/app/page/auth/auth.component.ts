@@ -12,19 +12,18 @@ export class AuthComponent {
 
   errMsg?: string
 
-  constructor (private authService: AuthService, private router: Router) {
-  }
+  constructor (private authService: AuthService, private router: Router) {}
 
-  onSubmitLoginForm (loginForm: NgForm) {
-    this.errMsg = undefined
+  onSubmitLoginForm(loginForm: NgForm) {
     if (loginForm.valid) {
-
-      const { email, password } = loginForm.value
-
-      this.authService
-        .login(email, password)
-        .then(() => this.router.navigateByUrl('/reservations'))
-        .catch(errMsg => this.errMsg = errMsg)
+      const { email, password } = loginForm.value;
+      this.authService.login(email, password).subscribe({
+        next: () => this.router.navigate(['/reservations']),
+        error: (err) => {
+          console.error('Erreur lors de la connexion:', err);
+          this.errMsg = 'Erreur d\'authentification';
+      }
+      });
     }
   }
 

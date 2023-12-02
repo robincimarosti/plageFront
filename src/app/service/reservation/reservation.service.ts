@@ -9,7 +9,7 @@ import { Reservation, ReservationHttp } from 'src/app/model/reservation';
 })
 export class ReservationService {
 
-  private apiUrl = 'http://localhost:8180/api';
+  private apiUrl = 'http://localhost:8280/api';
   private baseUrl;
   private reservationsSubject: BehaviorSubject<Reservation[]> = new BehaviorSubject<Reservation[]>([]);
   private reservations$: Observable<Reservation[]> = this.reservationsSubject.asObservable();

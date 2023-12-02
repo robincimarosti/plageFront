@@ -6,6 +6,7 @@ import { ReservationsComponent } from './page/reservations/reservations.componen
 import { AuthComponent } from './page/auth/auth.component';
 import { RegisterComponent } from './page/register/register.component';
 import { authGuard } from './guard/auth/auth.guard';
+import { EditClientComponent } from './page/edit-client/edit-client.component';
 
 const routes: Routes = [
   {
@@ -15,12 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    canActivate: [authGuard],
     component: AuthComponent
   },
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'edit/:id',
+    canActivate: [authGuard],
+    component: EditClientComponent
   },
   {
     path: 'clients',
@@ -32,6 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'reservations',
+    canActivate: [authGuard],
     component: ReservationsComponent
   },
 ];

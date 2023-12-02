@@ -9,7 +9,7 @@ import { Parasol, ParasolHttp } from 'src/app/model/parasol';
 })
 export class ParasolService {
 
-  private apiUrl = 'http://localhost:8180/api'
+  private apiUrl = 'http://localhost:8280/api'
   private baseUrl;
   private parasolsSubject: BehaviorSubject<Parasol[]> = new BehaviorSubject<Parasol[]>([]);
   private parasols$: Observable<Parasol[]> = this.parasolsSubject.asObservable();

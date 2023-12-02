@@ -22,6 +22,8 @@ export class AuthService {
     const formData = new FormData();
     formData.append('username', email);
     formData.append('password', password);
+    console.log('Email envoyé:', email);
+    console.log('Password envoyé:', password);
 
     return this.http.post<any>(url, formData, { withCredentials: true })
     .pipe(tap((response) => {

@@ -18,7 +18,10 @@ export class AuthComponent {
     if (loginForm.valid) {
       const { email, password } = loginForm.value;
       this.authService.login(email, password).subscribe({
-        next: () => this.router.navigate(['/reservations']),
+        next: (response) => {
+          console.log('Réponse du backend:', response); // Ajoutez cette ligne pour vérifier la réponse du backend
+          this.router.navigate(['/reservations']);
+        },
         error: (err) => {
           console.error('Erreur lors de la connexion:', err);
           this.errMsg = 'Erreur d\'authentification';

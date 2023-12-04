@@ -5,8 +5,8 @@ import { ParasolsComponent } from './page/parasols/parasols.component';
 import { ReservationsComponent } from './page/reservations/reservations.component';
 import { AuthComponent } from './page/auth/auth.component';
 import { RegisterComponent } from './page/register/register.component';
-import { authGuard } from './guard/auth/auth.guard';
 import { EditClientComponent } from './page/edit-client/edit-client.component';
+import { authGuard } from './guard/auth/auth.guard';
 
 const routes: Routes = [
   {

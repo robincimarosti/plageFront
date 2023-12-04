@@ -16,10 +16,10 @@ export class HeaderComponent {
   constructor (private authService: AuthService, private router: Router) {
   }
 
-  ngOnInit() {
+/*   ngOnInit() {
     this.idClientConnecte = this.authService.getConnectedClientId();
     console.log('ID du client connecté (récupéré) :', this.idClientConnecte);
-  }
+  } */
 
   onClickLogout(): void {
     this.authService.logout()

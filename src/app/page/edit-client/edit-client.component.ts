@@ -21,18 +21,63 @@ export class EditClientComponent implements OnInit {
     }
   }
 
-  editClient (clientEdited: ClientForm) {
-    const id = this.route.snapshot.paramMap.get('id')
+  // editClient (clientEdited: ClientForm) {
+  //   const id = this.route.snapshot.paramMap.get('id')
+  //   if (id) {
+  //     this.clientService.editClient(
+  //       {
+  //         ...clientEdited,
+  //         id: +id!
+  //       }
+  //     ).then(() => {
+  //       this.router.navigateByUrl('/reservations');
+  //     });
+  //   }
+  // }
+
+  editClient(clientEdited: ClientForm) {
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.clientService.editClient(
-        {
-          ...clientEdited,
-          id: +id!
+      const updatePayload: any = {
+        ...clientEdited,
+        id: +id,
+        paysDto: {
+          code: clientEdited.pays.code,
+          nom: clientEdited.pays.nom
         }
-      ).then(() => {
-        this.router.navigateByUrl('/reservation');
+      };
+      if (!clientEdited.motDePasse) {
+        delete updatePayload.motDePasse;
+      }
+    console.log("Client à mettre a jour", updatePayload)
+      this.clientService.editClient(updatePayload).then(() => {
+        this.router.navigateByUrl('/reservations');
       });
     }
   }
 
+//   editClient(clientEdited: ClientForm) {
+//     const id = this.route.snapshot.paramMap.get('id');
+//     if (id) {
+//         const clientToEdit: any = {
+//             ...clientEdited,
+//             id: +id,
+//             paysDto: {
+//                 code: clientEdited.pays.code,
+//                 nom: clientEdited.pays.nom
+//             }
+//             // Autres attributs si nécessaire
+//         };
+
+//         // Exclure le mot de passe si non modifié
+//         if (!clientEdited.motDePasse || clientEdited.motDePasse.trim() === '') {
+//             delete clientToEdit.motDePasse;
+//         }
+
+//         this.clientService.editClient(clientToEdit).then(() => {
+//             // Navigation après mise à jour
+//             this.router.navigateByUrl('/reservations');
+//         });
+//     }
+// }
 }

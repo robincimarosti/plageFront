@@ -9,17 +9,31 @@ import { AuthService } from 'src/app/service/auth/auth.service';
   styleUrls: ['./header.component.scss'],
 
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  isLoggedIn: boolean = false;
 
   idClientConnecte: number | null;
 
   constructor (private authService: AuthService, private router: Router) {
   }
 
-/*   ngOnInit() {
-    this.idClientConnecte = this.authService.getConnectedClientId();
-    console.log('ID du client connecté (récupéré) :', this.idClientConnecte);
+/*    ngOnInit() {
+    this.idClientConnecte = parseInt(localStorage.getItem('clientId') || '0', 10);
+    //this.idClientConnecte = this.authService.getConnectedClientId();
+    console.log("ID Client Connecté: ", this.idClientConnecte);
   } */
+  ngOnInit() {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      this.isLoggedIn = isAuthenticated;
+      console.log("ID Client Connecté: ", this.idClientConnecte);
+      if (isAuthenticated) {
+        this.idClientConnecte = parseInt(localStorage.getItem('clientId') || '0', 10);
+      } else {
+        this.idClientConnecte = null;
+      }
+    });
+  }
 
   onClickLogout(): void {
     this.authService.logout()

@@ -1,3 +1,4 @@
+<div class="container">
 <form (ngSubmit)="onSubmitForm()" [formGroup]="form">
   <label for="nom" class="col-sm-1 control-label my-4">Nom</label>
   <input type="text" formControlName="nom" id="nom"/>
@@ -11,21 +12,22 @@
   <label for="email" class="col-sm-1 control-label mb-4">Email</label>
   <input type="email" formControlName="email" id="email"/>
   <br>
-
+  <div *ngIf="!client">
   <label for="motDePasse" class="col-sm-1 control-label mb-4">Mot de passe</label>
   <input type="password" formControlName="motDePasse" id="motDePasse"/>
   <br>
-
+  </div>
   <label for="pays" class="col-sm-1 control-label mb-4">Pays</label>
   <select formControlName="pays" id="pays">
       <option *ngFor="let pays of paysList" [value]="pays.code">{{ pays.nom }}</option>
   </select>
   <br>
-
+  <div *ngIf="!client">
   <label for="lienDeParente" class="col-sm-1 control-label">Lien de parenté</label>
   <select formControlName="lienDeParente" id="lienDeParente">
       <option *ngFor="let lien of liensDeParenteList" [value]="lien.id">{{ lien.nom }}</option>
   </select>
+</div>
   <br>
 
   <button
@@ -35,4 +37,5 @@
             {{submitLabel}}
           </button>
 </form>
+</div>
 

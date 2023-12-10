@@ -68,8 +68,19 @@ export class ClientService {
   }
 
   editClient(clientToEdit: Client): Promise<Client> {
+    // Construire le payload de la requête
+  const updatePayload: any = {
+    ...clientToEdit,
+    motDePasse: clientToEdit.motDePasse && clientToEdit.motDePasse.trim() !== ''
+                ? clientToEdit.motDePasse : undefined,
+    paysDto: {
+      code: clientToEdit.pays.code,
+      nom: clientToEdit.pays.nom
+    },
+  };
+
   return firstValueFrom(
-    this.http.patch<Client>(`${this.baseUrl}/${clientToEdit.id}`, clientToEdit)
+    this.http.patch<Client>(`${this.baseUrl}/${clientToEdit.id}`, updatePayload)
   );
 }
 }

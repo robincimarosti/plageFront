@@ -1,6 +1,6 @@
 <app-form-client
   *ngIf="client$ | async as client"
-  title="MODIFIER UNE MALADIE"
+  title="MODIFIER UN CLIENT"
   submitLabel="MODIFIER"
   [client]="client"
   (formSubmitted)="editClient($event)"

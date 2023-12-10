@@ -23,25 +23,46 @@ export class AuthService {
     return this.tokenSub$.getValue();
   }
 
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkInitialAuthState());
+
+  private checkInitialAuthState(): boolean {
+    return !!localStorage.getItem('isConnected');
+  }
+
+  get isAuthenticated$(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
+  }
+
   login(email: string, motDePasse: string): Observable<boolean> {
     const loginData = { email, motDePasse };
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    return this.http.post(`${this.apiUrl}/login`, loginData, { headers, responseType: 'text' })
+    return this.http.post<any>(`${this.apiUrl}/login`, loginData)
       .pipe(
-        map((response: string) => {
-          if (response === 'Authentification réussie') {
+        map((response) => {
+          if (response.message === 'Authentification réussie') {
             localStorage.setItem('isConnected', 'true');
+            localStorage.setItem('clientId', response.clientId.toString());
+            this.isAuthenticatedSubject.next(true);
             this.tokenSub$.next(true);
             return true;
+          } else {
+            localStorage.removeItem('isConnected');
+            localStorage.removeItem('clientId');
+            this.tokenSub$.next(false);
+            this.isAuthenticatedSubject.next(false);
+            return false;
           }
-          localStorage.removeItem('isConnected');
-          this.tokenSub$.next(false);
-          return false;
+          // localStorage.removeItem('isConnected');
+          // localStorage.removeItem('clientId');
+          // this.tokenSub$.next(false);
+          // return false;
         }),
         catchError((error) => {
-          this.tokenSub$.next(false);
-          localStorage.removeItem('isConnected');
+          this.isAuthenticatedSubject.next(false);
+          // localStorage.removeItem('isConnected');
+          // localStorage.removeItem('clientId');
+          // this.tokenSub$.next(false);
           return of(false);
         })
       );
@@ -49,6 +70,8 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('isConnected');
+    localStorage.removeItem('clientId'); // Assurez-vous de supprimer aussi l'ID du client
+    this.isAuthenticatedSubject.next(false);
     this.tokenSub$.next(false);
   }
 }

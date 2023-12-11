@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, firstValueFrom, map } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom, map, tap } from 'rxjs';
 import { Client, ClientForm, ClientHttp } from 'src/app/model/client';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class ClientService {
   private clientsSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   private clients$: Observable<Client[]> = this.clientsSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
     this.baseUrl = `${this.apiUrl}/clients`;
     this.fetchClients();
   }
@@ -68,7 +70,6 @@ export class ClientService {
   }
 
   editClient(clientToEdit: Client): Promise<Client> {
-    // Construire le payload de la requête
   const updatePayload: any = {
     ...clientToEdit,
     motDePasse: clientToEdit.motDePasse && clientToEdit.motDePasse.trim() !== ''
@@ -78,9 +79,30 @@ export class ClientService {
       nom: clientToEdit.pays.nom
     },
   };
-
   return firstValueFrom(
     this.http.patch<Client>(`${this.baseUrl}/${clientToEdit.id}`, updatePayload)
   );
+}
+
+async delete(clientId: number): Promise<void> {
+  try {
+    // Send a GET request to the API to delete the client with the specified ID
+    const response = await firstValueFrom(
+      this.http
+        .delete<Client>(`${this.apiUrl}/clients/${clientId}`)
+        .pipe(
+          // Log the response to the console
+          tap((res) => console.log('Client effacé !', res))
+        )
+    );
+
+    this.authService.logout();
+
+    // Redirection vers la page d'accueil
+    this.router.navigateByUrl('/'); // Assurez-vous que cette route mène à la page d'accueil
+  } catch (error) {
+    // Log any errors to the console
+    console.error(error);
+  }
 }
 }

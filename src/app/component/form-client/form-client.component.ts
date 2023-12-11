@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Client, ClientForm } from 'src/app/model/client';
+import { ClientService } from 'src/app/service/client/client.service';
 import { LienDeParenteService } from 'src/app/service/lienDeParente/lien-de-parente.service';
 import { PaysService } from 'src/app/service/pays/pays.service';
 
@@ -21,7 +22,7 @@ export class FormClientComponent implements OnInit {
   liensDeParenteList: any[] = [];
 
   constructor (private fb: FormBuilder, private paysService: PaysService,
-    private lienDeParenteService: LienDeParenteService) {
+    private lienDeParenteService: LienDeParenteService, private clientService: ClientService) {
     this.formSubmitted = new EventEmitter<ClientForm>()
   }
 
@@ -63,54 +64,36 @@ export class FormClientComponent implements OnInit {
     });
   }
 
-  // private initForm(): void {
-  //   this.form = this.fb.group({
-  //     'nom': ['', Validators.required],
-  //     'prenom': ['', Validators.required],
-  //     'email': ['', [Validators.required, Validators.email]],
-  //     'motDePasse': ['', [Validators.required, Validators.minLength(6)]],
-  //     'pays': [null, Validators.required],
-  //     'lienDeParente': [null, Validators.required]
-  //   });
-
-  //   if(this.client) {
-  //     this.form.setValue({
-  //       nom: this.client.nom,
-  //       prenom: this.client.prenom,
-  //       email: this.client.email,
-  //       motDePasse: this.client.motDePasse,
-  //       pays: this.client.pays.code,
-  //       lienDeParente: this.client.lienDeParente.id,
-  //     })
-  //   }
-  // }
-
   private initForm(): void {
     const formControls = {
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      pays: [null, Validators.required]
+      pays: [null, Validators.required],
+      motDePasse: ['']
     };
-    // Créez toujours un nouveau FormGroup
+
   this.form = this.fb.group(formControls);
 
-    // En mode ajout, incluez les champs supplémentaires
+    // En mode ajout, incluer les champs supplémentaires
     if (!this.client) {
       this.form.addControl('motDePasse', new FormControl('', [Validators.required, Validators.minLength(6)]));
       this.form.addControl('lienDeParente', new FormControl(null, Validators.required));
     }
 
     if (this.client) {
-      // Définissez les valeurs pour les champs existants
+      // Définisser les valeurs pour les champs existants
       this.form.patchValue({
         nom: this.client.nom,
         prenom: this.client.prenom,
         email: this.client.email,
-        pays: this.client.pays.code
-        // Ne définissez pas lienDeParente et motDePasse
+        pays: this.client.pays.code,
+        motDePasse: ''
       });
     }
+  }
+  onClickDeleteClient (id: number) {
+    this.clientService.delete(id)
   }
 
 }

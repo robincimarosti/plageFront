@@ -18,11 +18,6 @@ export class HeaderComponent implements OnInit {
   constructor (private authService: AuthService, private router: Router) {
   }
 
-/*    ngOnInit() {
-    this.idClientConnecte = parseInt(localStorage.getItem('clientId') || '0', 10);
-    //this.idClientConnecte = this.authService.getConnectedClientId();
-    console.log("ID Client Connecté: ", this.idClientConnecte);
-  } */
   ngOnInit() {
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
       this.isLoggedIn = isAuthenticated;

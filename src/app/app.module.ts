@@ -13,6 +13,7 @@ import { FormClientComponent } from './component/form-client/form-client.compone
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { EditClientComponent } from './page/edit-client/edit-client.component';
+import { ClientComponent } from './page/client/client.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditClientComponent } from './page/edit-client/edit-client.component';
     FormClientComponent,
     HeaderComponent,
     FooterComponent,
-    EditClientComponent
+    EditClientComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

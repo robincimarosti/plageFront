@@ -13,9 +13,9 @@ export class AuthService {
   private tokenSub$: BehaviorSubject<boolean>;
 
   constructor(private http: HttpClient) {
-    // Dans AuthService
+
     this.tokenSub$ = new BehaviorSubject<boolean>(!!localStorage.getItem('isConnected'));
-    //this.tokenSub$ = new BehaviorSubject<boolean>(false);
+
     this.token$ = this.tokenSub$.asObservable();
   }
 
@@ -53,16 +53,10 @@ export class AuthService {
             this.isAuthenticatedSubject.next(false);
             return false;
           }
-          // localStorage.removeItem('isConnected');
-          // localStorage.removeItem('clientId');
-          // this.tokenSub$.next(false);
-          // return false;
+
         }),
         catchError((error) => {
           this.isAuthenticatedSubject.next(false);
-          // localStorage.removeItem('isConnected');
-          // localStorage.removeItem('clientId');
-          // this.tokenSub$.next(false);
           return of(false);
         })
       );
@@ -70,7 +64,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('isConnected');
-    localStorage.removeItem('clientId'); // Assurez-vous de supprimer aussi l'ID du client
+    localStorage.removeItem('clientId');
     this.isAuthenticatedSubject.next(false);
     this.tokenSub$.next(false);
   }

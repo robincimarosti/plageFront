@@ -8,7 +8,8 @@
             <!-- Boutons à droite -->
             <div class="d-flex">
               <a class="nav-link text-white me-2" href="reservations">Mes Réservations</a>
-              <a class="nav-link text-white me-2" [routerLink]="['/edit', idClientConnecte]" *ngIf="idClientConnecte">Mes Informations</a>
+              <!-- <a class="nav-link text-white me-2" [routerLink]="['/edit', idClientConnecte]" *ngIf="idClientConnecte">Mes Informations</a> -->
+              <a class="nav-link text-white me-2" [routerLink]="['/client']" *ngIf="idClientConnecte">Mes Informations</a>
               <button class="nav-link text-white" (click)="onClickLogout()">Déconnexion</button>
           </div>
       </div>

@@ -12,28 +12,17 @@ export class EditClientComponent implements OnInit {
 
   client$: Promise<Client>
 
+  clients: Client[]
+
   constructor (private clientService: ClientService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    // this.loadClients()
     const id = this.route.snapshot.paramMap.get('id')
     if (id) {
       this.client$ = this.clientService.getById(+id)
     }
   }
-
-  // editClient (clientEdited: ClientForm) {
-  //   const id = this.route.snapshot.paramMap.get('id')
-  //   if (id) {
-  //     this.clientService.editClient(
-  //       {
-  //         ...clientEdited,
-  //         id: +id!
-  //       }
-  //     ).then(() => {
-  //       this.router.navigateByUrl('/reservations');
-  //     });
-  //   }
-  // }
 
   editClient(clientEdited: ClientForm) {
     const id = this.route.snapshot.paramMap.get('id');
@@ -56,28 +45,16 @@ export class EditClientComponent implements OnInit {
     }
   }
 
-//   editClient(clientEdited: ClientForm) {
-//     const id = this.route.snapshot.paramMap.get('id');
-//     if (id) {
-//         const clientToEdit: any = {
-//             ...clientEdited,
-//             id: +id,
-//             paysDto: {
-//                 code: clientEdited.pays.code,
-//                 nom: clientEdited.pays.nom
-//             }
-//             // Autres attributs si nécessaire
-//         };
+  // onClickDeleteClient (id: number) {
+  //   this.clientService.delete(id)
+  //   this.loadClients()
+  // }
 
-//         // Exclure le mot de passe si non modifié
-//         if (!clientEdited.motDePasse || clientEdited.motDePasse.trim() === '') {
-//             delete clientToEdit.motDePasse;
-//         }
-
-//         this.clientService.editClient(clientToEdit).then(() => {
-//             // Navigation après mise à jour
-//             this.router.navigateByUrl('/reservations');
-//         });
-//     }
-// }
+  // private loadClients (): void {
+  //   this.clientService
+  //     .getAll()
+  //     .then((data: Client[]) => {
+  //       this.clients = data;
+  //     });
+  // }
 }

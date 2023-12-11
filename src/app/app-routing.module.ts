@@ -7,6 +7,7 @@ import { AuthComponent } from './page/auth/auth.component';
 import { RegisterComponent } from './page/register/register.component';
 import { EditClientComponent } from './page/edit-client/edit-client.component';
 import { authGuard } from './guard/auth/auth.guard';
+import { ClientComponent } from './page/client/client.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
     path: 'reservations',
     canActivate: [authGuard],
     component: ReservationsComponent
+  },
+  {
+    path: 'client',
+    canActivate: [authGuard],
+    component: ClientComponent
   },
 ];
 

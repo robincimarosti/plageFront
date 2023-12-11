@@ -1,0 +1,29 @@
+<div *ngIf="client" class="row col-8 card shadow mx-auto">
+
+
+  <div class="card-body mt-3">
+    <h3 class="card-title text-center mb-4">Mes Informations</h3>
+    <p class="card-text">
+      Nom: {{client.nom}}
+    </p>
+    <p class="card-text">
+      Prenom: {{client.prenom}}
+    </p>
+    <p class="card-text">
+      Email: {{client.email}}
+    </p>
+    <p class="card-text">
+      Pays: {{client.pays.nom}}
+    </p>
+    <p class="card-text">
+      lien de parente: {{client.lienDeParente.nom}}
+    </p>
+    <a class="btn btn-dark d-flex justify-content-center mt-5" [routerLink]="['/edit', idClientConnecte]" *ngIf="idClientConnecte">Editer mes informations</a>
+    <br>
+    <a routerLink="/reservations" class="btn btn-dark d-flex justify-content-center mt-5">RETOUR</a>
+    <br>
+    <a (click)="onClickDeleteClient(client.id)" class="btn btn-danger d-flex justify-content-center mt-5">SUPPRIMER Mon compte</a>
+  </div>
+</div>
+
+
